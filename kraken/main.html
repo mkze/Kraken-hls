@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <base href="/" /> 
+    <title>Kraken</title>
+    <link rel="stylesheet" href="lib/css/angular-material.min.css" />
+    <link rel="stylesheet" href="lib/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/kraken.css" />
+</head>
+<body ng-app="kraken" ng-controller="AppController as app">
+
+    <!-- main nav -->
+    <div ng-include="'components/nav/nav.html'"></div>
+
+    <!-- router viewport -->
+    <div ng-viewport ng-show="!app.user.watching"></div>
+
+    <!-- player -->
+    <div ng-show="app.user.watching" ng-if="app.user.access_token" class="player-outer" ng-include="'components/player/player.html'"></div> 
+
+
+    <!--angular material dependencies-->
+    <script src="lib/js/angular.min.js"></script>
+    <script src="lib/js/angular-animate.min.js"></script>
+    <script src="lib/js/angular-aria.min.js"></script>
+    <script src="lib/js/angular-material.min.js"></script>
+
+    <!--router-->
+    <script src="lib/js/router.es5.min.js"></script>
+
+    <!--hls.js-->
+    <script src="lib/js/hls.min.js"></script>
+
+    <!--kraken components-->
+    <script src="js/kraken.js"></script>
+    <script src="js/api.service.js"></script>
+    <script src="js/user.service.js"></script>
+    <script src="js/player.service.js"></script>
+    <script src="js/app.controller.js"></script>
+    <script src="components/nav/nav.controller.js"></script>
+    <script src="components/home/home.controller.js"></script>
+    <script src="components/player/player.controller.js"></script>
+    <script src="components/streams/streams.controller.js"></script>
+    <script src="components/channels/channels.controller.js"></script>
+    <script src="components/games/games.controller.js"></script>
+</body>
+</html>

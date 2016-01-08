@@ -1,0 +1,51 @@
+﻿<md-toolbar class="main-toolbar" ng-controller="NavController as nav">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" ng-disabled="!app.user.access_token" aria-label="toggle sidemenu">
+            <md-icon class="fa fa-bars fa-2x"></md-icon>
+        </md-button>
+        <md-button ng-show="app.user.stream && !app.user.watching" ng-click="app.return();" aria-label="return to stream">
+            <md-icon class="fa fa-reply icon-label"></md-icon>
+            <span>{{app.user.stream}}</span>
+        </md-button>
+        <span flex></span>
+        <md-button id="minimize" class="md-icon-button minimize-button" aria-label="minimize">
+            <i class="fa fa-minus window-toggle"></i>
+        </md-button>
+        <md-button id="maximize" ng-show="!nav.maximized" class="md-icon-button maximize-button" aria-label="maximize">
+            <i class="fa fa-square-o"></i>
+        </md-button>
+        <md-button id="unmaximize" ng-show="nav.maximized" class="md-icon-button maximize-button" aria-label="unmaximize">
+            <i class="fa fa-clone"></i>
+        </md-button>
+        <md-button id="close" class="md-icon-button close-button" aria-label="close">
+            <md-icon class="fa fa-close"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+<md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
+    <md-toolbar class="demo-toolbar md-primary">
+        <div class="md-toolbar-tools">
+            <md-icon class="fa fa-twitch"></md-icon>
+            <span>{{app.user.name}}</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" aria-label="close menu">
+                <md-icon class="fa fa-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-list>
+        <md-list-item ng-click="app.redirect('/kraken/channels')">
+            <md-icon class="fa fa-tv"></md-icon>
+            <p>Channels</p>
+        </md-list-item>
+        <md-list-item ng-click="app.redirect('/kraken/games')">
+            <md-icon class="fa fa-gamepad"></md-icon>
+            <p>Games</p>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item ng-click="app.redirect('/kraken/streams')">
+            <md-icon class="fa fa-heart"></md-icon>
+            <p>Following</p>
+        </md-list-item>
+    </md-list>
+</md-sidenav>

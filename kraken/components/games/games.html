@@ -1,0 +1,47 @@
+﻿<md-content flex class="md-padding">
+    <h2 class="md-display-1 text-center">Top Games</h2>
+    <md-button ng-show="games.streams.length" ng-click="games.streams = []">Return</md-button>
+    <md-progress-circular class="center" md-mode="indeterminate" md-diameter="100" ng-show="!games.titles.length"></md-progress-circular>
+    <div class="cards-container" ng-show="!games.streams.length">
+        <md-card ng-repeat="game in games.titles" ng-click="games.select($index)" class="game-card">
+            <md-card-header>
+                <md-card-avatar>
+                    <img ng-src={{game.game.logo.small}} />
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">{{game.game.name}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <img ng-src="{{game.game.box.large}}" class="md-card-image">
+            <md-card-content>
+                <p class="ellipsis">{{game.channels}} live channels</p>
+                <span>{{game.viewers | number}} viewers</span>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div class="cards-container" ng-show="games.streams.length">
+        <md-card ng-repeat="stream in games.streams" ng-click="games.watch($index)" class="channel-card">
+            <md-card-header>
+                <md-card-avatar>
+                    <img ng-src={{stream.channel.logo}} />
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">{{stream.channel.display_name}}</span>
+                    <span class="md-subhead ellipsis">{{stream.channel.game}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <img ng-src="{{stream.preview.large}}" class="md-card-image">
+            <md-card-content>
+                <p class="ellipsis">{{stream.channel.status}}</p>
+                <div layout="row">
+                    <span>{{stream.viewers | number}} viewers</span>
+                    <span flex></span>
+                    <span class="md-body-1">
+                        {{stream.video_height}}p
+                        <small class="md-caption">{{stream.average_fps | number : 0}}fps</small>
+                    </span>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+</md-content>

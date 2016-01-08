@@ -1,0 +1,30 @@
+﻿<md-content flex class="md-padding">
+    <h2 class="md-display-1 text-center">Top Channels</h2>
+    <p ng-show="channels.count" class="text-center">{{channels.count | number}} live channels</p>
+    <md-progress-circular class="center" md-mode="indeterminate" md-diameter="100" ng-show="!channels.streams.length"></md-progress-circular>
+    <div class="cards-container">
+        <md-card ng-repeat="stream in channels.streams" ng-click="channels.watch($index)" class="channel-card">
+            <md-card-header>
+                <md-card-avatar>
+                    <img ng-src={{stream.channel.logo}} />
+                </md-card-avatar>
+                <md-card-header-text>
+                    <span class="md-title">{{stream.channel.display_name}}</span>
+                    <span class="md-subhead ellipsis">{{stream.channel.game}}</span>
+                </md-card-header-text>
+            </md-card-header>
+            <img ng-src="{{stream.preview.large}}" class="md-card-image">
+            <md-card-content>
+                <p class="ellipsis">{{stream.channel.status}}</p>
+            <div layout="row">
+                <span>{{stream.viewers | number}} viewers</span>
+                <span flex></span>
+                <span class="md-body-1">
+                    {{stream.video_height}}p
+                    <small class="md-caption">{{stream.average_fps | number : 0}}fps</small>
+                </span>
+            </div>
+            </md-card-content>
+        </md-card>
+    </div>
+</md-content>
