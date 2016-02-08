@@ -32,18 +32,12 @@ button {
 
 .player-outer {
     height:calc(100% - 64px);
-    overflow:hidden;
-    position:relative;
 }
 
 .player-inner {
     height:100%;
+    width:100%;
     background:#000;
-}
-
-.player-fullscreen {
-    height:100% !important;
-    width:100% !important;
 }
 
 .player {

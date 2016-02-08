@@ -12,7 +12,7 @@ kraken.factory('user', function () {
         stream: '',
         volume: 50,
         quality: 'medium',
-        buffer: 8000
+        buffer: 8
     };
 
     return user || defaultUser;

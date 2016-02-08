@@ -10,3 +10,5 @@ lib/
 
 # misc
 launch.lnk
+*.sln
+start.lnk
