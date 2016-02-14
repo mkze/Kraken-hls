@@ -1,5 +1,5 @@
 ﻿
-"use strict";
+'use strict';
 
 function AppController($location, user) {
     this.$location = $location;
@@ -7,11 +7,11 @@ function AppController($location, user) {
     this.menuOpen = false;
 };
 
-AppController.prototype.return = function () {
+AppController.prototype.return = () => {
     this.user.watching = true;
 }
 
-AppController.prototype.redirect = function (path) {
+AppController.prototype.redirect = (path) => {
     this.user.watching = false;
     this.$location.path(path);
     this.menuOpen = false;
@@ -25,4 +25,4 @@ AppController.$routeConfig = [
 ];
 
 
-kraken.controller("AppController", ["$location", "user", AppController]);
+kraken.controller('AppController', ['$location', 'user', AppController]);

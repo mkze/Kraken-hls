@@ -1,57 +1,52 @@
-﻿
-"use strict";
+﻿'use strict';
 
 function PlayerService($timeout, user) {
 
-    var _hls = new Hls({
+    const HLS = new Hls({
         maxBufferLength: user.buffer
     });
 
-    var service = {
+    let service = {
 
-        play: function (url) {
+        play: (url) => {
 
-            _hls.detachMedia();
-            _hls.loadSource(url);
-            _hls.attachMedia(video);
-            _hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            HLS.detachMedia();
+            HLS.loadSource(url);
+            HLS.attachMedia(video);
+            HLS.on(Hls.Events.MANIFEST_PARSED, () => {
                 video.volume = user.volume;
                 video.play();
             });
 
-            _hls.on(Hls.Events.ERROR, function (event, data) {
-
-                var errorType = data.type;
-                var errorDetails = data.details;
-                var errorFatal = data.fatal;
-
-                console.error("ERROR: ");
-                console.log(errorType);
-                console.log(errorDetails);
-                console.log("fatal: " + errorFatal);
+            HLS.on(Hls.Events.ERROR, (event, data) => {
+                
+                let msg = `${data.fatal ? 'FATAL':''} ERROR: ${data.type} - ${data.details}`;
+                
+                console.error(msg);
 
                 if (data.fatal) {
-                    alert(errorType + ": " + errorDetails);
+                    alert(msg);
                     switch (data.type) {
                         case Hls.ErrorTypes.NETWORK_ERROR:
-                            console.log("fatal network error encountered, try to recover");
-                            _hls.startLoad();
+                            console.error('fatal network error encountered, trying to recover');
+                            HLS.startLoad();
                             break;
                         case Hls.ErrorTypes.MEDIA_ERROR:
-                            console.log("fatal media error encountered, try to recover");
-                            _hls.recoverMediaError();
+                            console.error('fatal media error encountered, trying to recover');
+                            HLS.recoverMediaError();
                             break;
                         default:
-                            console.log("fatal media error encountered, CANNOT recover");
-                            _hls.destroy();
+                            console.error('fatal media error encountered, CANNOT recover');
+                            HLS.destroy();
                             break;
                     }
+                    
                 }
             });
         }
     };
 
-    return service; 
+    return service;
 }
 
-kraken.factory('player', ["$timeout", "user", PlayerService]);
+kraken.factory('player', ['$timeout', 'user', PlayerService]);

@@ -1,44 +1,50 @@
-﻿
-"use strict";
+﻿'use strict';
 
-function NavController($scope) {
+class NavController {
 
-    this.remote = require('remote');
-    this.maximized = false;
+    constructor() {
+        this.remote = require('remote');
+        this.maximized = false;
 
-    this.bindHandlers();
+        this.bindHandlers();
+    }
 
-};
+    bindHandlers() {
+        let _this = this;
+        let window = this.remote.getCurrentWindow();
 
-NavController.prototype.bindHandlers = function () {
-    
-    let _this = this;
-    let window = this.remote.getCurrentWindow();
+        let closeButton = document.getElementById('close');
+        let minimizeButton = document.getElementById('minimize');
+        let maximizeButton = document.getElementById('maximize');
+        let unmaximizeButton = document.getElementById('unmaximize');
 
-    let closeButton = document.getElementById("close");
-    let minimizeButton = document.getElementById("minimize");
-    let maximizeButton = document.getElementById("maximize");
-    let unmaximizeButton = document.getElementById("unmaximize");
+        window.on('maximize', () => {
+            _this.maximized = true;
+        });
 
-    closeButton.onclick = function () {
-        window.close();
-    };
+        window.on('unmaximize', () => {
+            _this.maximized = false;
+        });
 
-    minimizeButton.onclick = function () {
-        window.minimize();
-    };
+        closeButton.onclick = () => {
+            window.close();
+        };
 
-    maximizeButton.onclick = function () {
-        window.maximize();
-        _this.maximized = !_this.maximized;
-    };
+        minimizeButton.onclick = () => {
+            window.minimize();
+        };
 
-    unmaximizeButton.onclick = function () {
-        window.unmaximize();
-        _this.maximized = !_this.maximized;
-    };
+        maximizeButton.onclick = () => {
+            window.maximize();
+            _this.maximized = !_this.maximized;
+        };
 
-};
+        unmaximizeButton.onclick = () => {
+            window.unmaximize();
+            _this.maximized = !_this.maximized;
+        };
+    }
 
+}
 
-kraken.controller("NavController", ["$scope", NavController]);
+module.exports = NavController;

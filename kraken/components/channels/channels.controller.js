@@ -1,61 +1,63 @@
-﻿
+﻿'use strict';
 
-function ChannelsController($mdToast, api, player, user) {
+class ChannelsController {
 
-    this.$api = api;
-    this.$player = player;
-    this.$toast = $mdToast;
+    constructor($mdToast, api, player, user) {
 
-    this.user = user;
-    this.streams = [];
-    this.count = 0;
-    
-    this.loadStreams();
-};
+        this.$api = api;
+        this.$player = player;
+        this.$toast = $mdToast;
 
-ChannelsController.prototype.loadStreams = function () {
+        this.user = user;
+        this.streams = [];
+        this.count = 0;
 
-    var _this = this;
-    var channels_req = this.$api.get_channels();
+        this.loadStreams();
+    };
 
-    channels_req.then(function (response) {
-        _this.streams = response.data.streams;
-        _this.count = response.data._total;
-    }, function () {
-        _this.$toast.showSimple("Failed to retrieve channels");
-    });
+    loadStreams() {
 
-};
+        let _this = this;
+        let channels_req = this.$api.get_channels();
 
-ChannelsController.prototype.watch = function (index) {
-
-    var _this = this;
-    var stream = this.streams[index];
-
-    this.user.stream = stream.channel.name;
-    this.user.watching = true;
-
-    this.$player.buffering = true;
-    var token_req = this.$api.get_live_token(stream.channel.name);
-
-    token_req.then(function (response) {
-        var access_token = response.data;
-        var hls_req = _this.$api.get_hls_links(stream.channel.name, access_token);
-
-        hls_req.then(function (response) {
-            var M3U_data = response.data;
-            var url = _this.$api.parse_m3u(M3U_data, "chunked");
-            _this.$player.play(url);
-
-        }, function () {
-            _this.$toast.showSimple("Error retrieving stream HLS links");
+        channels_req.then((response) => {
+            _this.streams = response.data.streams;
+            _this.count = response.data._total;
+        }, () => {
+            _this.$toast.showSimple('Failed to retrieve channels');
         });
 
-    }, function () {
-        _this.$toast.showSimple("Error retrieving stream access token");
-    });
-};
+    };
 
+    watch(index) {
 
+        let _this = this;
+        let stream = this.streams[index];
 
-kraken.controller("ChannelsController", ChannelsController);
+        this.user.stream = stream.channel.name;
+        this.user.watching = true;
+
+        this.$player.buffering = true;
+        let token_req = this.$api.get_live_token(stream.channel.name);
+
+        token_req.then((response) => {
+            let access_token = response.data;
+            let hls_req = _this.$api.get_hls_links(stream.channel.name, access_token);
+
+            hls_req.then((response) => {
+                let M3U_data = response.data;
+                let url = _this.$api.parse_m3u(M3U_data, 'chunked');
+                _this.$player.play(url);
+
+            }, () => {
+                _this.$toast.showSimple('Error retrieving stream HLS links');
+            });
+
+        }, () => {
+            _this.$toast.showSimple('Error retrieving stream access token');
+        });
+    };
+
+}
+
+module.exports = ChannelsController;

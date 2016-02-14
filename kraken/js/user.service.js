@@ -1,16 +1,16 @@
 ﻿
-"use strict";
+'use strict';
 
-kraken.factory('user', function () {
+kraken.factory('user', () => {
 
-    var user = JSON.parse(localStorage.getItem("user"));
+    let user = JSON.parse(localStorage.getItem('user'));
 
-    var defaultUser = {
+    let defaultUser = {
         name: '',
         access_token: '',
         watching: false,
         stream: '',
-        volume: 50,
+        volume: 0.5,
         quality: 'medium',
         buffer: 8
     };

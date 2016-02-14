@@ -7,18 +7,18 @@ const BrowserWindow = electron.BrowserWindow;
 
 let mainWindow;
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
     app.quit();
 });
 
-app.on('ready', function () {
+app.on('ready', () => {
 
-    const protocol = electron.protocol;
-    protocol.registerStandardSchemes(["app"]);
-    protocol.registerFileProtocol('app', function (request, callback) {
+    electron.protocol.registerFileProtocol('app', (request, callback) => {
         let url = request.url.substr(6);
-        callback({ path: path.normalize(__dirname + '/' + url) });
-    }, function (error) {
+        callback({
+            path: path.normalize(__dirname + '/' + url)
+        });
+    }, (error) => {
         if (error)
             console.error('Failed to register app:// protocol');
     });
@@ -41,7 +41,7 @@ app.on('ready', function () {
 
     mainWindow.webContents.openDevTools();
 
-    mainWindow.on('closed', function () {
+    mainWindow.on('closed', () => {
         mainWindow = null;
     });
 
