@@ -17,7 +17,6 @@ class PlayerController {
         this.volume = Math.round(user.volume * 100) || 50;
 
         this.qualities = [
-            { raw: 'audio_only', view: 'Audio' },
             { raw: 'mobile', view: 'Mobile' },
             { raw: 'low', view: 'Low' },
             { raw: 'medium', view: 'Medium' },
@@ -25,12 +24,12 @@ class PlayerController {
             { raw: 'chunked', view: 'Source' }
         ];
 
+        let toolbarPromise = undefined;
+
         video.onplaying = () => {
             _this.playing = true;
             $scope.$apply();
         };
-
-        let toolbarPromise;
 
         videoContainer.onmousemove = () => {
 
@@ -38,18 +37,13 @@ class PlayerController {
             _this.$timeout.cancel(toolbarPromise);
 
             //show toolbar
-            playertoolbar.style.opacity = 1;
+            playertoolbar.style.opacity = '1';
 
             //set timeout to hide toolbar again
             toolbarPromise = _this.$timeout(() => {
-                playertoolbar.style.opacity = 0;
+                playertoolbar.style.opacity = '0';
             }, 1500);
         };
-
-        //videoContainer.onmousewheel  (event) {
-        //    video.volume += Math.round(event.deltaY < 0 ? (video.volume >= 0.1 ? 0.1 : 0.0) : (video.volume <= 1.0 ? -0.1 : 0.0));
-        //    console.log(video.volume);
-        //};
 
     };
 
@@ -100,6 +94,17 @@ class PlayerController {
         //save user object to local storage
         localStorage.setItem('user', JSON.stringify(this.user));
     };
+    
+    qualityChanged() {
+        
+        if(this.quality === this.user.quality)
+            return;
+            
+        this.quality = this.user.quality;
+        let event = new Event('level_switch');
+        video.dispatchEvent(event);
+        localStorage.setItem('user', JSON.stringify(this.user));
+    }
 
 }
 

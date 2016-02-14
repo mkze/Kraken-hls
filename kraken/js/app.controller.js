@@ -1,21 +1,22 @@
-﻿
-'use strict';
+﻿'use strict';
 
-function AppController($location, user) {
-    this.$location = $location;
-    this.user = user;
-    this.menuOpen = false;
-};
+class AppController {
+    constructor($location, user) {
+        this.$location = $location;
+        this.user = user;
+        this.menuOpen = false;
+    };
 
-AppController.prototype.return = () => {
-    this.user.watching = true;
+    return () {
+        this.user.watching = true;
+    }
+
+    redirect(path) {
+        this.user.watching = false;
+        this.$location.path(path);
+        this.menuOpen = false;
+    };
 }
-
-AppController.prototype.redirect = (path) => {
-    this.user.watching = false;
-    this.$location.path(path);
-    this.menuOpen = false;
-};
 
 AppController.$routeConfig = [
   { path: 'kraken/main.html', component: 'home' },
@@ -24,5 +25,4 @@ AppController.$routeConfig = [
   { path: 'kraken/games', component: 'games' }
 ];
 
-
-kraken.controller('AppController', ['$location', 'user', AppController]);
+module.exports = AppController;

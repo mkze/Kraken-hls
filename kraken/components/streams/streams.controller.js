@@ -39,16 +39,9 @@ class StreamsController {
 
         token_req.then((response) => {
             let access_token = response.data;
-            let hls_req = _this.$api.get_hls_links(stream.channel.name, access_token);
-
-            hls_req.then((response) => {
-                let M3U_data = response.data;
-                let url = _this.$api.parse_m3u(M3U_data, _this.user.quality);
-                _this.$player.play(url);
-
-            }, () => {
-                _this.$toast.showSimple('Error retrieving stream HLS links');
-            });
+            
+            let url = _this.$api.get_hls_link(stream.channel.name, access_token);
+            _this.$player.play(url);
 
         }, () => {
             _this.$toast.showSimple('Error retrieving stream access token');

@@ -15,8 +15,9 @@ app.on('ready', () => {
 
     electron.protocol.registerFileProtocol('app', (request, callback) => {
         let url = request.url.substr(6);
+        let target = path.join(__dirname, url);
         callback({
-            path: path.normalize(__dirname + '/' + url)
+            path: path.normalize(target)
         });
     }, (error) => {
         if (error)

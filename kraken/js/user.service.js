@@ -1,19 +1,21 @@
-﻿
-'use strict';
+﻿'use strict';
 
-kraken.factory('user', () => {
+class UserService {
+    constructor() {
+        let user = JSON.parse(localStorage.getItem('user'));
 
-    let user = JSON.parse(localStorage.getItem('user'));
+        let defaultUser = {
+            name: '',
+            access_token: '',
+            watching: false,
+            stream: '',
+            volume: 0.5,
+            quality: 'medium',
+            buffer: 10
+        };
 
-    let defaultUser = {
-        name: '',
-        access_token: '',
-        watching: false,
-        stream: '',
-        volume: 0.5,
-        quality: 'medium',
-        buffer: 8
-    };
+        return user || defaultUser;
+    }
+}
 
-    return user || defaultUser;
-});
+module.exports = UserService;
