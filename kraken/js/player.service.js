@@ -3,11 +3,24 @@
 class PlayerService {
 
     constructor($timeout, user) {
-        let HLS = {};
 
-        let switchQuality = () => {
+        let HLS = {};
+        
+        const HLS_OPTS = {
+            //debug: true,
+            autoStartLoad: false,
+            maxBufferLength: user.buffer
+        };
+        
+        let destroyContext = () => {
+            HLS.detachMedia();
+            HLS.destroy();
+        };
+        
+        let setQuality = () => {
             HLS.levels.forEach((level, index) => {
                 if (level.attrs.VIDEO === user.quality) {
+                    //HLS.autoLevelCapping = index;
                     HLS.loadLevel = index;
                     console.info('set quality: %s', user.quality);
                 }
@@ -18,29 +31,52 @@ class PlayerService {
 
             play: (url) => {
 
-                if (HLS.destroy)
-                    HLS.destroy();
+                video.dispatchEvent(new Event('buffering'));
 
-                HLS = new Hls({
-                    maxBufferLength: user.buffer
-                });
-                HLS.detachMedia();
+                if (HLS.initialized) {
+                    destroyContext();
+                }
+
+                HLS = new Hls(HLS_OPTS);
                 HLS.loadSource(url);
                 HLS.attachMedia(video);
+                HLS.initialized = true;
 
                 HLS.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
 
-                    //set initial quality
-                    switchQuality();
+                    //set start quality
+                    HLS.levels.forEach((level, index) => {
+                        if (level.attrs.VIDEO === user.quality) {
+                            //HLS.autoLevelCapping = index;
+                            HLS.startLevel = index;
+                            HLS.loadLevel = index;
+                            console.info('auto level enabled: %s', HLS.autoLevelEnabled);
+                            console.info('set start quality: %s', index);
+                        }
+                    });
 
-                    //add event listener to video to switch qualities
-                    video.removeEventListener('level_switch', switchQuality);
-                    video.addEventListener('level_switch', switchQuality);
+                    HLS.startLoad();
 
+                    //custom video events
+                    video.removeEventListener('destroy', destroyContext);
+                    video.removeEventListener('level_switch', setQuality);
+                    
+                    video.addEventListener('destroy', destroyContext);
+                    video.addEventListener('level_switch', setQuality);
+                    
                     video.volume = user.volume;
                     video.play();
 
                 });
+
+                HLS.on(Hls.Events.FRAG_CHANGED, () => {
+                    video.dispatchEvent(new Event('play'));
+                })
+
+                HLS.on(Hls.Events.FPS_DROP, (event, data) => {
+                    console.info('FPS drop');
+                    console.info(`${event}: ${data}`);
+                })
 
                 HLS.on(Hls.Events.ERROR, (event, data) => {
 
@@ -85,6 +121,7 @@ class PlayerService {
                             console.error('buffer failed during appending');
                             break;
                         case Hls.ErrorDetails.BUFFER_STALLED_ERROR:
+                            video.dispatchEvent(new Event('buffering'));
                             console.error('buffer failed to load next segment before playback ended');
                             break;
                         default:

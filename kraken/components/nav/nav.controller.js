@@ -2,15 +2,14 @@
 
 class NavController {
 
-    constructor() {
+    constructor($scope) {
         this.remote = require('remote');
         this.maximized = false;
 
-        this.bindHandlers();
+        this.bindHandlers($scope);
     }
 
-    bindHandlers() {
-        let _this = this;
+    bindHandlers(scope) {
         let window = this.remote.getCurrentWindow();
 
         let closeButton = document.getElementById('close');
@@ -19,11 +18,13 @@ class NavController {
         let unmaximizeButton = document.getElementById('unmaximize');
 
         window.on('maximize', () => {
-            _this.maximized = true;
+            this.maximized = true;
+            scope.$digest();
         });
 
         window.on('unmaximize', () => {
-            _this.maximized = false;
+            this.maximized = false;
+            scope.$digest();
         });
 
         closeButton.onclick = () => {
@@ -36,12 +37,12 @@ class NavController {
 
         maximizeButton.onclick = () => {
             window.maximize();
-            _this.maximized = !_this.maximized;
+            this.maximized = !this.maximized;
         };
 
         unmaximizeButton.onclick = () => {
             window.unmaximize();
-            _this.maximized = !_this.maximized;
+            this.maximized = !this.maximized;
         };
     }
 

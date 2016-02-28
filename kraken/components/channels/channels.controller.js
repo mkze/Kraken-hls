@@ -16,22 +16,18 @@ class ChannelsController {
     };
 
     loadStreams() {
-
-        let _this = this;
         let channels_req = this.$api.get_channels();
 
         channels_req.then((response) => {
-            _this.streams = response.data.streams;
-            _this.count = response.data._total;
+            this.streams = response.data.streams;
+            this.count = response.data._total;
         }, () => {
-            _this.$toast.showSimple('Failed to retrieve channels');
+            this.$toast.showSimple('Failed to retrieve channels');
         });
 
     };
 
     watch(index) {
-
-        let _this = this;
         let stream = this.streams[index];
 
         this.user.stream = stream.channel.name;
@@ -42,10 +38,10 @@ class ChannelsController {
 
         token_req.then((response) => {
             let access_token = response.data;
-            let url = _this.$api.get_hls_link(stream.channel.name, access_token);
-            _this.$player.play(url);
+            let url = this.$api.get_hls_link(stream.channel.name, access_token);
+            this.$player.play(url);
         }, () => {
-            _this.$toast.showSimple('Error retrieving stream access token');
+            this.$toast.showSimple('Error retrieving stream access token');
         });
     };
 

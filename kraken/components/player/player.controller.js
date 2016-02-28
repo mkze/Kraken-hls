@@ -4,7 +4,6 @@ class PlayerController {
 
     constructor($scope, $mdToast, $timeout, api, player, user) {
 
-        let _this = this;
         this.buffering = false;
         this.playing = false;
         this.fullscreen = false;
@@ -14,35 +13,75 @@ class PlayerController {
         this.$timeout = $timeout;
 
         this.user = user;
-        this.volume = Math.round(user.volume * 100) || 50;
+        this.volume = Math.round(this.user.volume * 100);
 
         this.qualities = [
-            { raw: 'mobile', view: 'Mobile' },
-            { raw: 'low', view: 'Low' },
-            { raw: 'medium', view: 'Medium' },
+            { raw: 'chunked', view: 'Source' },
             { raw: 'high', view: 'High' },
-            { raw: 'chunked', view: 'Source' }
+            { raw: 'medium', view: 'Medium' },
+            { raw: 'low', view: 'Low' },
+            { raw: 'mobile', view: 'Mobile' }
         ];
 
         let toolbarPromise = undefined;
 
-        video.onplaying = () => {
-            _this.playing = true;
-            $scope.$apply();
-        };
+        let videoPlaying = () => {
+            this.playing = true;
+            this.buffering = false;
+            $scope.$digest();
+        }
+
+        let videoBuffering = () => {
+            this.playing = true;
+            this.buffering = true;
+            $scope.$digest();
+            console.log('BUFFERING');
+        }
+
+        video.addEventListener('play', videoPlaying, false);
+        video.addEventListener('buffering', videoBuffering, false);
 
         videoContainer.onmousemove = () => {
 
             //clear previous timeout
-            _this.$timeout.cancel(toolbarPromise);
+            this.$timeout.cancel(toolbarPromise);
 
             //show toolbar
             playertoolbar.style.opacity = '1';
 
             //set timeout to hide toolbar again
-            toolbarPromise = _this.$timeout(() => {
+            toolbarPromise = this.$timeout(() => {
                 playertoolbar.style.opacity = '0';
             }, 1500);
+        };
+
+        videoContainer.onwheel = (e) => {
+
+            //scroll speed
+            const speed = 0.02;
+            
+            let delta = e.deltaY;
+            let volume = video.volume;
+            
+            if (delta < 0 && (volume >= 0.0 && volume <= (1.0 - speed))) {
+                //up
+                volume = Math.round((volume + speed) * 100) / 100;
+            } else if (delta > 0 && (volume >= speed && volume <= 1.0)) {
+                //down
+                volume = Math.round((volume - speed) * 100) / 100;
+            }
+            
+            this.volume = Math.round(volume * 100);
+            video.volume = volume;
+            this.user.volume = volume;
+            
+            let event = new Event('mousemove');
+            videoContainer.dispatchEvent(event);
+            
+            //save user object to local storage
+            localStorage.setItem('user', JSON.stringify(this.user));
+            
+            $scope.$digest();
         };
 
     };
@@ -57,7 +96,12 @@ class PlayerController {
         this.playing = !this.playing;
 
     }
-
+    
+    stopPlayback() {
+        let event = new Event('destroy');
+        video.dispatchEvent(event);
+    }
+    
     toggleFullscreen() {
 
         if (document.webkitCurrentFullScreenElement) {
@@ -94,16 +138,17 @@ class PlayerController {
         //save user object to local storage
         localStorage.setItem('user', JSON.stringify(this.user));
     };
-    
+
     qualityChanged() {
-        
-        if(this.quality === this.user.quality)
+
+        if (this.quality === this.user.quality)
             return;
-            
+
         this.quality = this.user.quality;
+        localStorage.setItem('user', JSON.stringify(this.user));
+                
         let event = new Event('level_switch');
         video.dispatchEvent(event);
-        localStorage.setItem('user', JSON.stringify(this.user));
     }
 
 }

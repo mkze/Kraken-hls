@@ -1,31 +1,34 @@
-﻿<div id="videoContainer" class="player-inner" ng-controller="PlayerController as player">
-    <div ng-show="player.buffering" class="progress-container">
-        <md-progress-circular class="md-warn center progress-icon" md-diameter="100" md-mode="indeterminate"></md-progress-circular>
+﻿<div id='videoContainer' class='player-inner' ng-controller='PlayerController as player'>
+    <div ng-show='player.buffering' class='progress-container'>
+        <md-progress-circular class='md-warn center progress-icon' md-diameter='100' md-mode='indeterminate'></md-progress-circular>
     </div>
-    <video id="video" class="player"></video>
-    <md-toolbar id="playertoolbar" class="player-toolbar small">
-        <div class="md-toolbar-tools small">
-            <md-button ng-click="player.togglePlayback()" class="md-icon-button" aria-label="toggle playback">
-                <md-icon ng-show="!player.playing" class="fa fa-play"></md-icon>
-                <md-icon ng-show="player.playing" class="fa fa-pause"></md-icon>
+    <video id='video' class='player'></video>
+    <md-toolbar id='playertoolbar' class='player-toolbar small'>
+        <div class='md-toolbar-tools small'>
+            <md-button ng-click='player.togglePlayback()' class='md-icon-button' aria-label='toggle playback'>
+                <md-icon ng-show='!player.playing' class='fa fa-play-circle fa-2x'></md-icon>
+                <md-icon ng-show='player.playing' class='fa fa-pause-circle fa-2x'></md-icon>
             </md-button>
-            <md-button ng-click="player.toggleMute()" class="md-icon-button" aria-label="toggle mute">
-                <md-icon ng-show="player.volume > 50" class="fa fa-volume-up"></md-icon>
-                <md-icon ng-show="player.volume > 0 && player.user.volume < 50" class="fa fa-volume-down"></md-icon>
-                <md-icon ng-show="player.volume === 0" class="fa fa-volume-off"></md-icon>
+            <md-button ng-show='player.user.stream' ng-click='player.stopPlayback()' class='md-icon-button' aria-label='stop playback'>
+                <md-icon class='fa fa-stop-circle'></md-icon>
             </md-button>
-            <div class="player-volume">
-                <md-slider id="volumeslider" md-discrete class="small" ng-model="player.volume" ng-change="player.volumeChanged()" step="1" min="0" max="100" aria-label="volume"></md-slider>
+            <md-button ng-click='player.toggleMute()' class='md-icon-button' aria-label='toggle mute'>
+                <md-icon ng-show='player.volume > 50' class='fa fa-volume-up'></md-icon>
+                <md-icon ng-show='player.volume > 0 && player.user.volume < 50' class='fa fa-volume-down'></md-icon>
+                <md-icon ng-show='player.volume === 0' class='fa fa-volume-off'></md-icon>
+            </md-button>
+            <div class='player-volume'>
+                <md-slider id='volumeslider' class='small' ng-model='player.volume' ng-change='player.volumeChanged()' step='1' min='0' max='100' aria-label='volume'></md-slider>
             </div>
             <span flex></span>
             <md-input-container>
-                <md-select ng-model="player.user.quality" md-on-close="player.qualityChanged()" placeholder="{{player.user.quality}}">
-                    <md-option ng-repeat="quality in player.qualities" value="{{quality.raw}}">{{quality.view}}</md-option>
+                <md-select ng-model='player.user.quality' md-on-close='player.qualityChanged()' placeholder='{{player.user.quality}}'>
+                    <md-option ng-repeat='quality in player.qualities' value='{{quality.raw}}'>{{quality.view}}</md-option>
                 </md-select>
             </md-input-container>
-            <md-button class="md-icon-button" ng-click="player.toggleFullscreen()" aria-label="toggle fullscreen">
-                <md-icon ng-show="!player.fullscreen" class="fa fa-expand"></md-icon>
-                <md-icon ng-show="player.fullscreen" class="fa fa-compress"></md-icon>
+            <md-button class='md-icon-button' ng-click='player.toggleFullscreen()' aria-label='toggle fullscreen'>
+                <md-icon ng-show='!player.fullscreen' class='fa fa-expand'></md-icon>
+                <md-icon ng-show='player.fullscreen' class='fa fa-compress'></md-icon>
             </md-button>
         </div>
     </md-toolbar>

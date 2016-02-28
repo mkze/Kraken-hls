@@ -16,8 +16,6 @@ class HomeController {
     }
 
     authenticate() {
-        let _this = this;
-
         let remote = require('remote');
         let BrowserWindow = remote.BrowserWindow;
         let authWindow = new BrowserWindow({
@@ -27,7 +25,6 @@ class HomeController {
             'node-integration': false
         });
 
-
         let clientID = 'dpns6ijfs3228myzqg1593j8p27dn8h';
         let redirectURL = encodeURIComponent('app://kraken/');
         let authUrl = `https://api.twitch.tv/kraken/oauth2/authorize?response_type=token&client_id=${clientID}&redirect_uri=${redirectURL}&scope=user_read`;
@@ -35,29 +32,23 @@ class HomeController {
         authWindow.show();
 
         authWindow.webContents.on('will-navigate', (event, url) => {
-            _this.parseAuth(url, authWindow);
+            this.parseAuth(url, authWindow);
         });
 
         authWindow.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl) => {
-            _this.parseAuth(newUrl, authWindow);
+            this.parseAuth(newUrl, authWindow);
         });
 
     };
 
     redirect() {
-        let _this = this;
-
-        //redirect after 500ms
         this.$timeout(() => {
-            _this.$location.path('/kraken/streams');
-        }, 500);
+            this.$location.path('/kraken/streams');
+        });
     }
 
     parseAuth(url, window) {
-        let _this = this;
-
         if (!url.includes('#access_token=')) {
-            this.$toast.showSimple('Failed to retrieve access token from auth redirect');
             return;
         }
 
@@ -72,22 +63,22 @@ class HomeController {
         user_req.then((response) => {
 
             //indicate success
-            _this.$toast.showSimple('Successfully Authenticated');
+            this.$toast.showSimple('Successfully Authenticated');
 
             //get user data from response
             let user_data = response.data;
-            _this.user.name = user_data.display_name;
-            _this.user.access_token = access_token;
-            _this.user.watching = false;
+            this.user.name = user_data.display_name;
+            this.user.access_token = access_token;
+            this.user.watching = false;
 
             //save user object to local storage
-            localStorage.setItem('user', JSON.stringify(_this.user));
+            localStorage.setItem('user', JSON.stringify(this.user));
 
             //redirect to streams
-            _this.redirect();
+            this.redirect();
 
         }, (error) => {
-            _this.$toast.showSimple('Failed to retrieve user object');
+            this.$toast.showSimple('Failed to retrieve user object');
         });
     }
 
