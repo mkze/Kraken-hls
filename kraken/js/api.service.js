@@ -4,8 +4,8 @@ class ApiService {
 
     constructor($http) {
         return {
-            get_channels: () => {
-                return $http.get('https://api.twitch.tv/kraken/streams');
+            get_channels: (limit, offset) => {
+                return $http.get(`https://api.twitch.tv/kraken/streams?limit=${limit}&offset=${offset}`);
             },
             get_games: (limit, offset) => {
                 return $http.get(`https://api.twitch.tv/kraken/games/top?limit=${limit}&offset=${offset}`);
@@ -16,8 +16,8 @@ class ApiService {
             get_streams: (oauth_token) => {
                 return $http.get(`https://api.twitch.tv/kraken/streams/followed?oauth_token=${oauth_token}`);
             },
-            get_streams_by_game: (game) => {
-                return $http.get(`https://api.twitch.tv/kraken/streams?game=${game}`);
+            get_streams_by_game: (game, limit, offset) => {
+                return $http.get(`https://api.twitch.tv/kraken/streams?game=${game}&limit=${limit}&offset=${offset}`);
             },
             get_live_token: (channel) => {
                 return $http.get(`https://api.twitch.tv/api/channels/${channel}/access_token`);

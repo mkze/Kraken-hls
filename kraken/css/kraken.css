@@ -18,7 +18,7 @@ body {
 
 [ng-viewport] {
     overflow: scroll;
-    height: calc(100% - 64px);
+    height: calc(100% - 45px);
 }
 
 ::-webkit-scrollbar {
@@ -33,6 +33,8 @@ body {
 
 .main-toolbar {
     -webkit-app-region: drag;
+    min-height: 45px;
+    height: 45px;
 }
 
 button {
@@ -40,7 +42,7 @@ button {
 }
 
 .player-outer {
-    height: calc(100% - 64px);
+    height: calc(100% - 45px);
 }
 
 .player-inner {
@@ -116,6 +118,7 @@ md-slider.small {
 
 .center {
     margin: 0 auto;
+    display: block;
 }
 
 .icon-label {
@@ -144,10 +147,12 @@ md-slider.small {
 
 .game-card {
     width: 215px;
+    cursor:pointer;
 }
 
 .channel-card {
     width: 300px;
+    cursor:pointer;
 }
 
 .main-toolbar button.md-icon-button {

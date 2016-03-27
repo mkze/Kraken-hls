@@ -9,19 +9,29 @@ class StreamsController {
         this.$api = api;
         this.$player = player;
 
-        this.streams = {};
+        this.streams = [];
         this.resolved = false;
         this.user = user;
+
+        this.header = 'Live Streams';
 
         this.loadStreams();
     }
 
     loadStreams() {
 
+        this.resolved = false;
+        this.streams = [];
+
         let streams_req = this.$api.get_streams(this.user.access_token);
 
         streams_req.then((response) => {
             this.streams = response.data.streams;
+
+            if (!this.streams || !this.streams.length) {
+                this.header = 'No Live Streams';
+            }
+
         }, () => {
             this.$toast.showSimple('Failed to retrieve streams');
         });

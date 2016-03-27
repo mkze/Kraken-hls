@@ -3,7 +3,7 @@
         <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" ng-disabled="!app.user.access_token" aria-label="toggle sidemenu">
             <md-icon class="fa fa-bars fa-2x"></md-icon>
         </md-button>
-        <md-button ng-show="app.user.stream && !app.user.watching" ng-click="app.return();" aria-label="return to stream">
+        <md-button ng-show="app.user.stream && !app.user.watching" ng-click="app.back();" aria-label="return to stream">
             <md-icon class="fa fa-reply icon-label"></md-icon>
             <span>{{app.user.stream}}</span>
         </md-button>
@@ -23,7 +23,7 @@
     </div>
 </md-toolbar>
 <md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
-    <md-toolbar class="demo-toolbar md-primary">
+    <md-toolbar class="md-primary">
         <div class="md-toolbar-tools">
             <md-icon class="fa fa-twitch"></md-icon>
             <span>{{app.user.name}}</span>

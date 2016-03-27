@@ -48,10 +48,12 @@ class PlayerController {
 
             //show toolbar
             playertoolbar.style.opacity = '1';
+            video.style.cursor = 'default';
 
             //set timeout to hide toolbar again
             toolbarPromise = this.$timeout(() => {
                 playertoolbar.style.opacity = '0';
+                video.style.cursor = 'none';
             }, 1500);
         };
 

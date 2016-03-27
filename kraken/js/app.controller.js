@@ -7,7 +7,7 @@ class AppController {
         this.menuOpen = false;
     };
 
-    return () {
+    back() {
         this.user.watching = true;
     }
 

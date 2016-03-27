@@ -1,9 +1,15 @@
 {
-  "name": "kraken",
-  "version": "0.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron main.js"
-  }
+    "name": "kraken",
+    "version": "0.0.1",
+    "description": "Experimental twitch client for Windows",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron main.js"
+    },
+    "dependencies": {
+        "electron-prebuilt": "latest",
+        "angular": "latest",
+        "angular-material": "latest",
+        "hls.js": "latest"
+    }
 }

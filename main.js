@@ -7,6 +7,8 @@ const BrowserWindow = electron.BrowserWindow;
 
 let mainWindow;
 
+app.commandLine.appendSwitch('disable-renderer-backgrounding');
+
 app.on('window-all-closed', () => {
     app.quit();
 });

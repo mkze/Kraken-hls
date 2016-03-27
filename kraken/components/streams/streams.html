@@ -2,8 +2,12 @@
     <md-card>
         <md-card-content>
             <md-list>
-                <md-subheader class="md-subheader" ng-show="streams.resolved && streams.streams.length">Live Channels</md-subheader>
-                <md-subheader class="md-subheader" ng-show="streams.resolved && !streams.streams.length">No Live Channels</md-subheader>
+                <div class="md-title">
+                    <md-button class="md-icon-button" ng-click="streams.loadStreams()" aria-label="Refresh">
+                        <i class="fa fa-refresh"></i>
+                    </md-button>
+                    <span>{{streams.header}}</span>
+                </div>
                 <md-progress-circular class="center" md-mode="indeterminate" md-diameter="100" ng-show="!streams.resolved"></md-progress-circular>
                 <md-list-item ng-click="streams.watch($index)" class="md-3-line" ng-repeat="s in streams.streams">
                     <img ng-src="{{s.channel.logo}}" class="md-avatar" />
