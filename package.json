@@ -6,10 +6,15 @@
     "scripts": {
         "start": "electron main.js"
     },
-    "dependencies": {
+    "devDependencies": {
+	"gulp": "latest",
         "electron-prebuilt": "latest",
         "angular": "latest",
+	"angular-new-router": "latest",
         "angular-material": "latest",
-        "hls.js": "latest"
+        "angular-animate": "latest",
+        "angular-aria": "latest",
+        "hls.js": "latest",
+        "font-awesome": "latest"
     }
 }
