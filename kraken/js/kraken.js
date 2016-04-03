@@ -29,7 +29,19 @@ const kraken = angular.module('kraken', ['ngMaterial', 'ngNewRouter'])
                     .factory('user', UserService)
                     .factory('player', PlayerService);
 
-kraken.config(($locationProvider) => {
+kraken.config(($locationProvider, $mdThemingProvider) => {
+
     //enable html5 mode routing
     $locationProvider.html5Mode(true);
+
+    $mdThemingProvider.theme('dark')
+                      .primaryPalette('red')
+                      .accentPalette('blue')
+                      .dark();
+
+    $mdThemingProvider.theme('light')
+                      .primaryPalette('red')
+                      .accentPalette('blue');
+
+    $mdThemingProvider.alwaysWatchTheme(true);
 });

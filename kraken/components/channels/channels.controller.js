@@ -23,9 +23,9 @@ class ChannelsController {
     attachScrollHandler() {
 
         angular.element(document).ready(() => {
-            let ele = document.querySelector('[ng-viewport]');
+            let ele = document.querySelector('md-content');
             ele.onscroll = () => {
-                if (this.resolved && (this.offset <= this.streams.length) && (ele.scrollTop + ele.offsetHeight) > ele.scrollHeight) {
+                if (this.resolved && (this.offset <= this.streams.length) && (ele.scrollTop + ele.offsetHeight) >= ele.scrollHeight) {
                     this.offset += this.limit;
                     this.loadStreams();
                 }

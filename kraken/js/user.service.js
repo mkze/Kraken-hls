@@ -12,7 +12,7 @@ class UserService {
             volume: 0.5,
             quality: 'medium',
             buffer: 10,
-            theme: '#2E2E2E',
+            theme: 'dark',
             animations: true
         };
 

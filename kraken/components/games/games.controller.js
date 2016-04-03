@@ -30,9 +30,9 @@ class GamesController {
     attachScrollHandler() {
 
         angular.element(document).ready(() => {
-            let ele = document.querySelector('[ng-viewport]');
+            let ele = document.querySelector('md-content');
             ele.onscroll = () => {
-                if (this.resolved && (ele.scrollTop + ele.offsetHeight) > ele.scrollHeight) {
+                if (this.resolved && (ele.scrollTop + ele.offsetHeight) >= ele.scrollHeight) {
 
                     if (!this.streams.length && (this.titleOffset <= this.titles.length)) {
                         this.titleOffset += this.limit;

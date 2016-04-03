@@ -11,19 +11,18 @@
 html,
 body {
     font-family: Roboto;
-    color: #000;
     height: 100%;
     overflow: hidden;
     -webkit-app-region: no-drag;
 }
 
-md-toolbar.themed {
-    background: #2E2E2E;
+[ng-viewport] {
+    overflow: auto;
+    height: calc(100% - 45px);
 }
 
-[ng-viewport] {
-    overflow: scroll;
-    height: calc(100% - 45px);
+md-content {
+    height: calc(100% - 32px);
 }
 
 ::-webkit-scrollbar {
@@ -33,6 +32,10 @@ md-toolbar.themed {
 ::-webkit-scrollbar-thumb {
     background-color: #555;
     border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #424242;
 }
 
 .main-toolbar {

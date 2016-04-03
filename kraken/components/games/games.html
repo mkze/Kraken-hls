@@ -1,4 +1,4 @@
-﻿<md-content flex class="md-padding">
+﻿<md-content class="md-padding">
     <div class="text-center">
         <md-button class="md-icon-button" ng-click="games.refresh()" aria-label="Refresh">
             <i class="fa fa-refresh"></i>
@@ -25,7 +25,7 @@
             </md-card-header>
             <img ng-src="{{game.game.box.large}}" class="md-card-image">
             <md-card-content>
-                <p class="ellipsis">{{game.channels}} live channels</p>
+                <p class="ellipsis">{{game.channels | number}} live channels</p>
                 <span>{{game.viewers | number}} viewers</span>
             </md-card-content>
         </md-card>

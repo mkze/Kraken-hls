@@ -5,9 +5,10 @@
     <title>Kraken</title>
     <link rel="stylesheet" href="lib/css/angular-material.min.css" />
     <link rel="stylesheet" href="lib/css/font-awesome.min.css" />
+    <link id="noanimate" rel="stylesheet" href="css/noanimate.css" disabled />
     <link rel="stylesheet" href="css/kraken.css" />
 </head>
-<body ng-app="kraken" ng-controller="AppController as app">
+<body ng-app="kraken" ng-controller="AppController as app" md-theme="{{app.theme}}" md-theme-watch>
 
     <!-- main nav -->
     <div ng-include="'components/nav/nav.html'"></div>

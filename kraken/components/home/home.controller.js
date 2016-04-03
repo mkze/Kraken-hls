@@ -22,7 +22,7 @@ class HomeController {
             width: 800,
             height: 600,
             show: false,
-            'node-integration': false
+            nodeIntegration: false
         });
 
         let clientID = 'dpns6ijfs3228myzqg1593j8p27dn8h';

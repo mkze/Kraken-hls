@@ -5,6 +5,7 @@ class AppController {
         this.$location = $location;
         this.user = user;
         this.menuOpen = false;
+        this.theme = user.theme;
     };
 
     back() {
@@ -16,6 +17,11 @@ class AppController {
         this.$location.path(path);
         this.menuOpen = false;
     };
+
+    saveTheme() {
+        this.user.theme = this.theme;
+        localStorage.setItem('user', JSON.stringify(this.user));
+    }
 }
 
 AppController.$routeConfig = [
