@@ -11,7 +11,9 @@ class UserService {
             stream: '',
             volume: 0.5,
             quality: 'medium',
-            buffer: 10
+            buffer: 10,
+            theme: '#2E2E2E',
+            animations: true
         };
 
         return user || defaultUser;

@@ -3,14 +3,15 @@
 class NavController {
 
     constructor($scope) {
-        this.remote = require('remote');
-        this.maximized = false;
 
+        this.maximized = false;
         this.bindHandlers($scope);
     }
 
     bindHandlers(scope) {
-        let window = this.remote.getCurrentWindow();
+
+        const remote = require('remote');
+        let window = remote.getCurrentWindow();
 
         let closeButton = document.getElementById('close');
         let minimizeButton = document.getElementById('minimize');

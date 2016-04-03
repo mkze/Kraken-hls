@@ -1,4 +1,4 @@
-﻿<md-toolbar class="main-toolbar" ng-controller="NavController as nav">
+﻿<md-toolbar class="main-toolbar themed" ng-controller="NavController as nav">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" ng-click="app.menuOpen = !app.menuOpen" ng-disabled="!app.user.access_token" aria-label="toggle sidemenu">
             <md-icon class="fa fa-bars fa-2x"></md-icon>
@@ -23,7 +23,7 @@
     </div>
 </md-toolbar>
 <md-sidenav class="md-sidenav-left" md-is-open="app.menuOpen">
-    <md-toolbar class="md-primary">
+    <md-toolbar class="md-primary themed">
         <div class="md-toolbar-tools">
             <md-icon class="fa fa-twitch"></md-icon>
             <span>{{app.user.name}}</span>
@@ -46,6 +46,11 @@
         <md-list-item ng-click="app.redirect('/kraken/streams')">
             <md-icon class="fa fa-heart"></md-icon>
             <p>Following</p>
+        </md-list-item>
+        <md-divider></md-divider>
+        <md-list-item ng-click="app.redirect('/kraken/settings')">
+            <md-icon class="fa fa-cog"></md-icon>
+            <p>Settings</p>
         </md-list-item>
     </md-list>
 </md-sidenav>

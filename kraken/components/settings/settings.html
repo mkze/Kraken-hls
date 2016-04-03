@@ -1,0 +1,23 @@
+﻿
+
+<md-content class="md-padding" flex="50">
+    
+    <md-input-container class="md-icon-float md-block">
+        <label>Theme</label>
+        <md-icon class="fa fa-paint-brush"></md-icon>
+        <md-select ng-model="settings.user.theme" md-on-close="settings.changeTheme()">
+            <md-option ng-repeat="theme in settings.themes" value="{{theme.color}}">
+                {{theme.name}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+
+    <md-list>
+        <md-subheader class="md-no-sticky">General Options</md-subheader>
+        <md-list-item>
+            <p>Animations</p>
+            <md-checkbox class="md-secondary" ng-model="settings.user.animations"></md-checkbox>
+        </md-list-item>
+    </md-list>
+
+</md-content>

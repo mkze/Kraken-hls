@@ -10,6 +10,7 @@ let PlayerController = require(path.resolve('./kraken/components/player/player.c
 let StreamsController = require(path.resolve('./kraken/components/streams/streams.controller.js'));
 let ChannelsController = require(path.resolve('./kraken/components/channels/channels.controller.js'));
 let GamesController = require(path.resolve('./kraken/components/games/games.controller.js'));
+let SettingsController = require(path.resolve('./kraken/components/settings/settings.controller.js'));
 
 let ApiService = require(path.resolve('./kraken/js/api.service.js'));
 let UserService = require(path.resolve('./kraken/js/user.service.js'));
@@ -23,6 +24,7 @@ const kraken = angular.module('kraken', ['ngMaterial', 'ngNewRouter'])
                     .controller('StreamsController', StreamsController)
                     .controller('ChannelsController', ChannelsController)
                     .controller('GamesController', GamesController)
+                    .controller('SettingsController', SettingsController)
                     .factory('api', ApiService)
                     .factory('user', UserService)
                     .factory('player', PlayerService);

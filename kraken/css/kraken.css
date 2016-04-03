@@ -11,9 +11,14 @@
 html,
 body {
     font-family: Roboto;
+    color: #000;
     height: 100%;
     overflow: hidden;
     -webkit-app-region: no-drag;
+}
+
+md-toolbar.themed {
+    background: #2E2E2E;
 }
 
 [ng-viewport] {
@@ -29,7 +34,6 @@ body {
     background-color: #555;
     border-radius: 10px;
 }
-
 
 .main-toolbar {
     -webkit-app-region: drag;
