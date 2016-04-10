@@ -22,18 +22,18 @@ let fonts = [
 ];
 
 gulp.task('move_libs', () => {
-    gulp.src(js_libs)
-        .pipe(gulp.dest('kraken/lib/js/'));
+    return gulp.src(js_libs)
+               .pipe(gulp.dest('kraken/lib/js/'));
 });
 
 gulp.task('move_css', () => {
-
-    gulp.src(css_libs)
-        .pipe(gulp.dest('kraken/lib/css/'));
-        
-    gulp.src(fonts)
-        .pipe(gulp.dest('kraken/lib/fonts/'));
-        
+    return gulp.src(css_libs)
+               .pipe(gulp.dest('kraken/lib/css/'));
 });
 
-gulp.task('default', ['move_libs', 'move_css']);
+gulp.task('move_fonts', () => {
+    return gulp.src(fonts)
+               .pipe(gulp.dest('kraken/lib/fonts/'));
+});
+
+gulp.task('default', ['move_libs', 'move_css', 'move_fonts']);

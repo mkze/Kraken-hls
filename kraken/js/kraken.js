@@ -15,6 +15,7 @@ let SettingsController = require(path.resolve('./kraken/components/settings/sett
 let ApiService = require(path.resolve('./kraken/js/api.service.js'));
 let UserService = require(path.resolve('./kraken/js/user.service.js'));
 let PlayerService = require(path.resolve('./kraken/js/player.service.js'));
+let SettingsService = require(path.resolve('./kraken/js/settings.service.js'));
 
 const kraken = angular.module('kraken', ['ngMaterial', 'ngNewRouter'])
                     .controller('AppController', AppController)
@@ -27,7 +28,8 @@ const kraken = angular.module('kraken', ['ngMaterial', 'ngNewRouter'])
                     .controller('SettingsController', SettingsController)
                     .factory('api', ApiService)
                     .factory('user', UserService)
-                    .factory('player', PlayerService);
+                    .factory('player', PlayerService)
+                    .factory('settings', SettingsService);
 
 kraken.config(($locationProvider, $mdThemingProvider) => {
 

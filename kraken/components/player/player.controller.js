@@ -2,7 +2,7 @@
 
 class PlayerController {
 
-    constructor($scope, $mdToast, $timeout, api, player, user) {
+    constructor($scope, $mdToast, $timeout, api, player, user, settings) {
 
         this.buffering = false;
         this.playing = false;
@@ -13,6 +13,7 @@ class PlayerController {
         this.$timeout = $timeout;
 
         this.user = user;
+        this.settings = settings;
         this.volume = Math.round(this.user.volume * 100);
 
         this.qualities = [
@@ -22,6 +23,12 @@ class PlayerController {
             { raw: 'low', view: 'Low' },
             { raw: 'mobile', view: 'Mobile' }
         ];
+
+        this.events = {
+            mousemove: new Event('mousemove'),
+            destroy: new Event('destroy'),
+            levelswitch: new Event('level_switch')
+        };
 
         let toolbarPromise = undefined;
 
@@ -35,7 +42,6 @@ class PlayerController {
             this.playing = true;
             this.buffering = true;
             $scope.$digest();
-            console.log('BUFFERING');
         }
 
         video.addEventListener('play', videoPlaying, false);
@@ -77,11 +83,10 @@ class PlayerController {
             video.volume = volume;
             this.user.volume = volume;
             
-            let event = new Event('mousemove');
-            videoContainer.dispatchEvent(event);
+            videoContainer.dispatchEvent(this.events.mousemove);
             
             //save user object to local storage
-            localStorage.setItem('user', JSON.stringify(this.user));
+            this.settings.save();
             
             $scope.$digest();
         };
@@ -100,8 +105,7 @@ class PlayerController {
     }
     
     stopPlayback() {
-        let event = new Event('destroy');
-        video.dispatchEvent(event);
+        video.dispatchEvent(this.events.destroy);
     }
     
     toggleFullscreen() {
@@ -138,7 +142,7 @@ class PlayerController {
         volumeslider.blur();
 
         //save user object to local storage
-        localStorage.setItem('user', JSON.stringify(this.user));
+        this.settings.save();
     };
 
     qualityChanged() {
@@ -147,10 +151,9 @@ class PlayerController {
             return;
 
         this.quality = this.user.quality;
-        localStorage.setItem('user', JSON.stringify(this.user));
+        this.settings.save();
                 
-        let event = new Event('level_switch');
-        video.dispatchEvent(event);
+        video.dispatchEvent(this.events.levelswitch);
     }
 
 }

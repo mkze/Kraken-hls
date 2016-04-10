@@ -1,29 +1,20 @@
 ﻿
-"use strict";
+'use strict';
 
 class SettingsController {
 
-    constructor(user) {
+    constructor(user, settings) {
         this.user = user;
+        this.settings = settings;
+
         this.themes = [
             'dark',
             'light'
         ];
-
-        this.setAnimations();
     }
 
     toggleAnimations() {
-        this.setAnimations();
-    }
-
-    setAnimations() {
-        let ele = document.getElementById('noanimate');
-        if (this.user.animations) {
-            ele.setAttribute('disabled', true);
-        } else {
-            ele.removeAttribute('disabled');
-        }
+        this.settings.setAnimations();
     }
 
 }

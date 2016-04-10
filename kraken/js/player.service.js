@@ -6,6 +6,11 @@ class PlayerService {
 
         let HLS = {};
         
+        const EVENTS = {
+            buffering: new Event('buffering'),
+            play: new Event('play')
+        };
+
         const HLS_OPTS = {
             //debug: true,
             autoStartLoad: false,
@@ -31,7 +36,7 @@ class PlayerService {
 
             play: (url) => {
 
-                video.dispatchEvent(new Event('buffering'));
+                video.dispatchEvent(EVENTS.buffering);
 
                 if (HLS.initialized) {
                     destroyContext();
@@ -70,7 +75,7 @@ class PlayerService {
                 });
 
                 HLS.on(Hls.Events.FRAG_CHANGED, () => {
-                    video.dispatchEvent(new Event('play'));
+                    video.dispatchEvent(EVENTS.play);
                 })
 
                 HLS.on(Hls.Events.FPS_DROP, (event, data) => {
@@ -121,7 +126,7 @@ class PlayerService {
                             console.error('buffer failed during appending');
                             break;
                         case Hls.ErrorDetails.BUFFER_STALLED_ERROR:
-                            video.dispatchEvent(new Event('buffering'));
+                            video.dispatchEvent(EVENTS.buffering);
                             console.error('buffer failed to load next segment before playback ended');
                             break;
                         default:

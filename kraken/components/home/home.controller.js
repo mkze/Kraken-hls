@@ -2,7 +2,7 @@
 
 class HomeController {
 
-    constructor($location, $http, $timeout, $mdToast, api, user) {
+    constructor($location, $http, $timeout, $mdToast, api, user, settings) {
 
         this.$location = $location;
         this.$http = $http;
@@ -11,7 +11,9 @@ class HomeController {
 
         this.api = api;
         this.user = user;
+        this.settings = settings;
 
+        this.settings.set();
         this.checkAuth();
     }
 
@@ -22,7 +24,9 @@ class HomeController {
             width: 800,
             height: 600,
             show: false,
-            nodeIntegration: false
+            webPreferences: {
+                nodeIntegration: false
+            }
         });
 
         let clientID = 'dpns6ijfs3228myzqg1593j8p27dn8h';

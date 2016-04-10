@@ -7,14 +7,14 @@
         "start": "electron main.js"
     },
     "devDependencies": {
-	"gulp": "latest",
-        "electron-prebuilt": "latest",
-        "angular": "latest",
-	"angular-new-router": "latest",
-        "angular-material": "latest",
-        "angular-animate": "latest",
-        "angular-aria": "latest",
-        "hls.js": "latest",
-        "font-awesome": "latest"
+        "gulp": "^3.9.1",
+        "electron-prebuilt": "^0.37.5",
+        "angular": "^1.5.3",
+        "angular-new-router": "^0.5.3",
+        "angular-material": "^1.0.7",
+        "angular-animate": "^1.5.3",
+        "angular-aria": "^1.5.3",
+        "hls.js": "^0.5.19",
+        "font-awesome": "^4.5.0"
     }
 }

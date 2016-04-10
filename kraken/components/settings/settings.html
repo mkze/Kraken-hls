@@ -1,24 +1,21 @@
 ﻿
 <md-content class="md-padding">
-    
-    <md-content flex="50">
-        <md-subheader class="md-no-sticky">General Options</md-subheader>
 
-        <md-input-container class="md-icon-float md-block">
-            <label>Theme</label>
-            <md-icon class="fa fa-paint-brush"></md-icon>
-            <md-select ng-model="app.theme" md-on-close="app.saveTheme()">
-                <md-option ng-repeat="theme in settings.themes" value="{{theme}}">
-                    {{theme}}
-                </md-option>
-            </md-select>
-        </md-input-container>
+    <md-subheader class="md-no-sticky">General Options</md-subheader>
 
-        <md-input-container class="md-icon-float md-block">
-            <md-icon class="fa fa-tachometer"></md-icon>
-            <md-checkbox class="md-secondary" ng-model="settings.user.animations" ng-change="settings.toggleAnimations()"> Animations </md-checkbox>
-        </md-input-container>
+    <md-input-container flex="10" class="md-icon-float md-block">
+        <label>Theme</label>
+        <md-icon class="fa fa-paint-brush"></md-icon>
+        <md-select ng-model="app.theme" md-on-close="app.saveTheme()">
+            <md-option ng-repeat="theme in settings.themes" value="{{theme}}">
+                {{theme}}
+            </md-option>
+        </md-select>
+    </md-input-container>
 
-    </md-content>
+    <md-input-container class="md-icon-float md-block">
+        <md-icon class="fa fa-magic"></md-icon>
+        <md-checkbox class="md-secondary" ng-model="settings.user.animations" ng-change="settings.toggleAnimations()"> Animations </md-checkbox>
+    </md-input-container>
 
 </md-content>
