@@ -13,7 +13,9 @@ class UserService {
             quality: 'medium',
             buffer: 10,
             theme: 'dark',
-            animations: true
+            animations: true,
+            chat: true,
+            bttv: true
         };
 
         return user || defaultUser;

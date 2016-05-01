@@ -3,9 +3,9 @@
 
     <md-subheader class="md-no-sticky">General Options</md-subheader>
 
-    <md-input-container flex="10" class="md-icon-float md-block">
-        <label>Theme</label>
+    <md-input-container flex="20" class="md-icon-float md-block">
         <md-icon class="fa fa-paint-brush"></md-icon>
+        <span>Theme</span>
         <md-select ng-model="app.theme" md-on-close="app.saveTheme()">
             <md-option ng-repeat="theme in settings.themes" value="{{theme}}">
                 {{theme}}
@@ -15,7 +15,23 @@
 
     <md-input-container class="md-icon-float md-block">
         <md-icon class="fa fa-magic"></md-icon>
-        <md-checkbox class="md-secondary" ng-model="settings.user.animations" ng-change="settings.toggleAnimations()"> Animations </md-checkbox>
+        <md-checkbox class="md-secondary" ng-model="settings.user.animations" ng-change="settings.toggleAnimations()">Animations</md-checkbox>
+    </md-input-container>
+
+    <md-input-container flex="20" class="md-icon-float md-block">
+        <md-icon class="fa fa-hourglass"></md-icon>
+        <span>Buffer Size</span>
+        <input type="number" min="3" max="30" step="1" ng-model="settings.user.buffer" />
+    </md-input-container>
+
+    <md-input-container class="md-icon-float md-block">
+        <md-icon class="fa fa-commenting"></md-icon>
+        <md-checkbox class="md-secondary" ng-model="settings.user.chat">Chat</md-checkbox>
+    </md-input-container>
+
+    <md-input-container class="md-icon-float md-block">
+        <md-icon class="fa fa-twitch"></md-icon>
+        <md-checkbox class="md-secondary" ng-model="settings.user.bttv">BTTV</md-checkbox>
     </md-input-container>
 
 </md-content>

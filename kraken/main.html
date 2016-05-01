@@ -19,6 +19,11 @@
     <!-- player -->
     <div ng-show="app.user.watching" ng-if="app.user.access_token" class="player-outer" ng-include="'components/player/player.html'"></div>
 
+    <!-- chat -->
+    <div ng-show="app.user.watching" ng-if="app.user.access_token" class="chat-outer" ng-controller="ChatController as chat">
+        <iframe id="chat" class="chat-frame" ng-src="{{chat.src}}"></iframe>
+    </div>
+
     <!--angular material dependencies-->
     <script src="lib/js/angular.min.js"></script>
     <script src="lib/js/angular-animate.min.js"></script>

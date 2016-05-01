@@ -11,6 +11,7 @@ let StreamsController = require(path.resolve('./kraken/components/streams/stream
 let ChannelsController = require(path.resolve('./kraken/components/channels/channels.controller.js'));
 let GamesController = require(path.resolve('./kraken/components/games/games.controller.js'));
 let SettingsController = require(path.resolve('./kraken/components/settings/settings.controller.js'));
+let ChatController = require(path.resolve('./kraken/components/chat/chat.controller.js'));
 
 let ApiService = require(path.resolve('./kraken/js/api.service.js'));
 let UserService = require(path.resolve('./kraken/js/user.service.js'));
@@ -26,6 +27,7 @@ const kraken = angular.module('kraken', ['ngMaterial', 'ngNewRouter'])
                     .controller('ChannelsController', ChannelsController)
                     .controller('GamesController', GamesController)
                     .controller('SettingsController', SettingsController)
+                    .controller('ChatController', ChatController)
                     .factory('api', ApiService)
                     .factory('user', UserService)
                     .factory('player', PlayerService)
@@ -37,12 +39,12 @@ kraken.config(($locationProvider, $mdThemingProvider) => {
     $locationProvider.html5Mode(true);
 
     $mdThemingProvider.theme('dark')
-                      .primaryPalette('red')
+                      .primaryPalette('deep-purple')
                       .accentPalette('blue')
                       .dark();
 
     $mdThemingProvider.theme('light')
-                      .primaryPalette('red')
+                      .primaryPalette('deep-purple')
                       .accentPalette('blue');
 
     $mdThemingProvider.alwaysWatchTheme(true);

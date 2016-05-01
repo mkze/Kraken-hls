@@ -73,18 +73,13 @@ class PlayerService {
                     video.play();
 
                 });
-
+                
                 HLS.on(Hls.Events.FRAG_CHANGED, () => {
                     video.dispatchEvent(EVENTS.play);
-                })
-
-                HLS.on(Hls.Events.FPS_DROP, (event, data) => {
-                    console.info('FPS drop');
-                    console.info(`${event}: ${data}`);
-                })
+                });
 
                 HLS.on(Hls.Events.ERROR, (event, data) => {
-
+                    video.dispatchEvent(EVENTS.buffering);
                     switch (data.details) {
                         case Hls.ErrorDetails.MANIFEST_LOAD_ERROR:
                             console.error('manifest failed to load');
@@ -126,7 +121,6 @@ class PlayerService {
                             console.error('buffer failed during appending');
                             break;
                         case Hls.ErrorDetails.BUFFER_STALLED_ERROR:
-                            video.dispatchEvent(EVENTS.buffering);
                             console.error('buffer failed to load next segment before playback ended');
                             break;
                         default:
